@@ -1,8 +1,46 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Icon from "@/components/ui/icon";
+import Navigation from "@/components/Navigation";
+import PSGames from "./PSGames";
+import { useState } from "react";
 
 const Index = () => {
+  const [currentPage, setCurrentPage] = useState('home');
+
+  if (currentPage === 'ps-games') {
+    return (
+      <div>
+        <Navigation currentPage={currentPage} onPageChange={setCurrentPage} />
+        <PSGames />
+      </div>
+    );
+  }
+
+  if (currentPage !== 'home') {
+    return (
+      <div>
+        <Navigation currentPage={currentPage} onPageChange={setCurrentPage} />
+        <div className="min-h-screen bg-gradient-to-br from-dark-space via-slate-900 to-dark-space text-foreground pt-20">
+          <div className="container mx-auto px-4 py-20 text-center">
+            <h1 className="text-4xl font-black text-neon-orange mb-4" style={{ fontFamily: 'Orbitron, monospace' }}>
+              СКОРО БУДЕТ ГОТОВО!
+            </h1>
+            <p className="text-xl text-muted-foreground mb-8">
+              Эта секция находится в разработке
+            </p>
+            <Button 
+              onClick={() => setCurrentPage('home')}
+              className="bg-neon-orange hover:bg-neon-orange/80 text-dark-space font-bold"
+            >
+              ВЕРНУТЬСЯ НА ГЛАВНУЮ
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   const emulators = [
     {
       id: 1,
@@ -57,163 +95,193 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-dark-space via-slate-900 to-dark-space text-foreground">
-      {/* Hero Section */}
-      <section className="relative pt-20 pb-32 px-4">
-        <div className="absolute inset-0 bg-gradient-to-r from-neon-pink/10 via-cyber-blue/10 to-electric-green/10"></div>
-        <div className="container mx-auto text-center relative z-10">
-          <div className="mb-8">
-            <h1 className="text-6xl md:text-8xl font-black mb-6 animate-neon-pulse" 
-                style={{ fontFamily: 'Orbitron, monospace' }}>
-              <span className="text-neon-orange">RETRO</span>{' '}
-              <span className="text-cyber-blue">ARCADE</span>
-            </h1>
-            <div className="text-2xl md:text-3xl font-bold mb-8 text-neon-pink animate-retro-glow">
-              🎮 ИИ-ПЛАТФОРМА БУДУЩЕГО 🚀
+    <div>
+      <Navigation currentPage={currentPage} onPageChange={setCurrentPage} />
+      <div className="min-h-screen bg-gradient-to-br from-dark-space via-slate-900 to-dark-space text-foreground">
+        {/* Hero Section */}
+        <section className="relative pt-32 pb-32 px-4">
+          <div className="absolute inset-0 bg-gradient-to-r from-neon-pink/10 via-cyber-blue/10 to-electric-green/10"></div>
+          <div className="container mx-auto text-center relative z-10">
+            <div className="mb-8">
+              <h1 className="text-6xl md:text-8xl font-black mb-6 animate-neon-pulse" 
+                  style={{ fontFamily: 'Orbitron, monospace' }}>
+                <span className="text-neon-orange">RETRO</span>{' '}
+                <span className="text-cyber-blue">ARCADE</span>
+              </h1>
+              <div className="text-2xl md:text-3xl font-bold mb-8 text-neon-pink animate-retro-glow">
+                🎮 ИИ-ПЛАТФОРМА БУДУЩЕГО 🚀
+              </div>
             </div>
-          </div>
-          
-          <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-4xl mx-auto leading-relaxed"
-             style={{ fontFamily: 'Roboto Mono, monospace' }}>
-            Играй в тысячи классических игр прямо в браузере с революционными ИИ-улучшениями. 
-            Никаких скачиваний — только чистое ретро-удовольствие!
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-            <Button 
-              size="lg" 
-              className="bg-neon-orange hover:bg-neon-orange/80 text-dark-space font-bold text-lg px-8 py-4 border-2 border-neon-orange animate-retro-glow"
-            >
-              <Icon name="Play" className="mr-2" size={24} />
-              НАЧАТЬ ИГРУ
-            </Button>
-            <Button 
-              variant="outline" 
-              size="lg"
-              className="border-2 border-cyber-blue text-cyber-blue hover:bg-cyber-blue hover:text-dark-space font-bold text-lg px-8 py-4"
-            >
-              <Icon name="Cpu" className="mr-2" size={24} />
-              УЗНАТЬ ОБ ИИ
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* Emulators Section */}
-      <section className="py-20 px-4 bg-gradient-to-r from-slate-800/50 to-slate-900/50">
-        <div className="container mx-auto">
-          <h2 className="text-4xl md:text-5xl font-black text-center mb-4 text-electric-green animate-neon-pulse"
-              style={{ fontFamily: 'Orbitron, monospace' }}>
-            ЭМУЛЯТОРЫ КОНСОЛЕЙ
-          </h2>
-          <p className="text-center text-muted-foreground text-lg mb-16 max-w-2xl mx-auto">
-            Выберите свою любимую ретро-консоль и погрузитесь в мир классических игр
-          </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {emulators.map((emulator) => (
-              <Card 
-                key={emulator.id} 
-                className={`bg-card/50 border-2 border-${emulator.color} hover:border-${emulator.color} hover:shadow-xl hover:shadow-${emulator.color}/20 transition-all duration-300 group cursor-pointer`}
-              >
-                <CardHeader className="text-center">
-                  <div className="mx-auto mb-4 w-24 h-24 rounded-lg overflow-hidden border-2 border-current">
-                    <img 
-                      src={emulator.image} 
-                      alt={emulator.name}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                    />
-                  </div>
-                  <CardTitle className={`text-${emulator.color} text-lg font-black`} style={{ fontFamily: 'Orbitron, monospace' }}>
-                    {emulator.name}
-                  </CardTitle>
-                  <CardDescription className="text-muted-foreground">
-                    {emulator.description}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="text-center">
-                  <div className={`text-${emulator.color} font-bold mb-4`}>
-                    {emulator.games}
-                  </div>
-                  <Button 
-                    variant="outline" 
-                    className={`w-full border-${emulator.color} text-${emulator.color} hover:bg-${emulator.color} hover:text-dark-space`}
-                  >
-                    <Icon name="GamepadIcon" className="mr-2" size={16} />
-                    ЗАПУСТИТЬ
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* AI Features Section */}
-      <section className="py-20 px-4">
-        <div className="container mx-auto">
-          <div className="text-center mb-16">
-            <div className="mb-6">
-              <img 
-                src="/img/d8981ffa-35e5-4b49-8653-eca3a0027adc.jpg" 
-                alt="AI Enhancement" 
-                className="w-24 h-24 mx-auto rounded-full border-4 border-neon-pink animate-retro-glow"
-              />
-            </div>
-            <h2 className="text-4xl md:text-5xl font-black mb-4 text-neon-pink animate-neon-pulse"
-                style={{ fontFamily: 'Orbitron, monospace' }}>
-              ИИ-ТЕХНОЛОГИИ
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Революционные ИИ-алгоритмы превращают классические игры в современные шедевры
+            
+            <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-4xl mx-auto leading-relaxed"
+               style={{ fontFamily: 'Roboto Mono, monospace' }}>
+              Играй в тысячи классических игр прямо в браузере с революционными ИИ-улучшениями. 
+              Никаких скачиваний — только чистое ретро-удовольствие!
             </p>
-          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {aiFeatures.map((feature, index) => (
-              <Card 
-                key={index}
-                className="bg-card/30 border-2 border-retro-purple hover:border-neon-pink hover:shadow-xl hover:shadow-neon-pink/20 transition-all duration-300 group"
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+              <Button 
+                size="lg" 
+                className="bg-neon-orange hover:bg-neon-orange/80 text-dark-space font-bold text-lg px-8 py-4 border-2 border-neon-orange animate-retro-glow"
+                onClick={() => setCurrentPage('ps-games')}
               >
-                <CardHeader className="text-center">
-                  <div className="mx-auto mb-4 w-16 h-16 rounded-full bg-gradient-to-r from-retro-purple to-neon-pink flex items-center justify-center group-hover:animate-retro-glow">
-                    <Icon name={feature.icon} size={32} className="text-white" />
-                  </div>
-                  <CardTitle className="text-neon-pink font-black" style={{ fontFamily: 'Orbitron, monospace' }}>
-                    {feature.title}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-muted-foreground text-center">
-                    {feature.description}
-                  </CardDescription>
-                </CardContent>
-              </Card>
-            ))}
+                <Icon name="Play" className="mr-2" size={24} />
+                PS4/PS5 ИГРЫ
+              </Button>
+              <Button 
+                variant="outline" 
+                size="lg"
+                className="border-2 border-cyber-blue text-cyber-blue hover:bg-cyber-blue hover:text-dark-space font-bold text-lg px-8 py-4"
+                onClick={() => setCurrentPage('emulators')}
+              >
+                <Icon name="Gamepad2" className="mr-2" size={24} />
+                ЭМУЛЯТОРЫ
+              </Button>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* CTA Section */}
-      <section className="py-20 px-4 bg-gradient-to-r from-neon-orange/10 via-neon-pink/10 to-cyber-blue/10">
-        <div className="container mx-auto text-center">
-          <h2 className="text-4xl md:text-5xl font-black mb-6 animate-neon-pulse"
-              style={{ fontFamily: 'Orbitron, monospace' }}>
-            <span className="text-retro-yellow">ГОТОВ К</span>{' '}
-            <span className="text-electric-green">ПРИКЛЮЧЕНИЮ?</span>
-          </h2>
-          <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Присоединяйся к тысячам игроков и открой для себя новую эру ретро-гейминга
-          </p>
-          <Button 
-            size="lg"
-            className="bg-gradient-to-r from-neon-orange to-neon-pink hover:from-neon-pink hover:to-cyber-blue text-dark-space font-black text-xl px-12 py-6 border-0 animate-retro-glow"
-          >
-            <Icon name="Rocket" className="mr-3" size={24} />
-            ПОЕХАЛИ! 🚀
-          </Button>
-        </div>
-      </section>
+        {/* Quick Access PS Games Preview */}
+        <section className="py-16 px-4 bg-gradient-to-r from-slate-800/30 to-slate-900/30">
+          <div className="container mx-auto">
+            <div className="flex items-center justify-between mb-8">
+              <h2 className="text-3xl font-black text-cyber-blue animate-neon-pulse"
+                  style={{ fontFamily: 'Orbitron, monospace' }}>
+                🎮 ПОПУЛЯРНЫЕ PS ИГРЫ
+              </h2>
+              <Button 
+                onClick={() => setCurrentPage('ps-games')}
+                variant="outline"
+                className="border-2 border-cyber-blue text-cyber-blue hover:bg-cyber-blue hover:text-dark-space font-bold"
+              >
+                ПОСМОТРЕТЬ ВСЕ
+                <Icon name="ArrowRight" className="ml-2" size={16} />
+              </Button>
+            </div>
+            <div className="text-center text-muted-foreground mb-8">
+              247+ игр PS4/PS5 с ИИ-улучшениями, рейтингами и мгновенным запуском
+            </div>
+          </div>
+        </section>
+
+        {/* Emulators Section */}
+        <section className="py-20 px-4 bg-gradient-to-r from-slate-800/50 to-slate-900/50">
+          <div className="container mx-auto">
+            <h2 className="text-4xl md:text-5xl font-black text-center mb-4 text-electric-green animate-neon-pulse"
+                style={{ fontFamily: 'Orbitron, monospace' }}>
+              ЭМУЛЯТОРЫ КОНСОЛЕЙ
+            </h2>
+            <p className="text-center text-muted-foreground text-lg mb-16 max-w-2xl mx-auto">
+              Выберите свою любимую ретро-консоль и погрузитесь в мир классических игр
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {emulators.map((emulator) => (
+                <Card 
+                  key={emulator.id} 
+                  className={`bg-card/50 border-2 border-${emulator.color} hover:border-${emulator.color} hover:shadow-xl hover:shadow-${emulator.color}/20 transition-all duration-300 group cursor-pointer`}
+                  onClick={() => setCurrentPage('emulators')}
+                >
+                  <CardHeader className="text-center">
+                    <div className="mx-auto mb-4 w-24 h-24 rounded-lg overflow-hidden border-2 border-current">
+                      <img 
+                        src={emulator.image} 
+                        alt={emulator.name}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                      />
+                    </div>
+                    <CardTitle className={`text-${emulator.color} text-lg font-black`} style={{ fontFamily: 'Orbitron, monospace' }}>
+                      {emulator.name}
+                    </CardTitle>
+                    <CardDescription className="text-muted-foreground">
+                      {emulator.description}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="text-center">
+                    <div className={`text-${emulator.color} font-bold mb-4`}>
+                      {emulator.games}
+                    </div>
+                    <Button 
+                      variant="outline" 
+                      className={`w-full border-${emulator.color} text-${emulator.color} hover:bg-${emulator.color} hover:text-dark-space`}
+                    >
+                      <Icon name="GamepadIcon" className="mr-2" size={16} />
+                      ЗАПУСТИТЬ
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* AI Features Section */}
+        <section className="py-20 px-4">
+          <div className="container mx-auto">
+            <div className="text-center mb-16">
+              <div className="mb-6">
+                <img 
+                  src="/img/d8981ffa-35e5-4b49-8653-eca3a0027adc.jpg" 
+                  alt="AI Enhancement" 
+                  className="w-24 h-24 mx-auto rounded-full border-4 border-neon-pink animate-retro-glow"
+                />
+              </div>
+              <h2 className="text-4xl md:text-5xl font-black mb-4 text-neon-pink animate-neon-pulse"
+                  style={{ fontFamily: 'Orbitron, monospace' }}>
+                ИИ-ТЕХНОЛОГИИ
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Революционные ИИ-алгоритмы превращают классические игры в современные шедевры
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {aiFeatures.map((feature, index) => (
+                <Card 
+                  key={index}
+                  className="bg-card/30 border-2 border-retro-purple hover:border-neon-pink hover:shadow-xl hover:shadow-neon-pink/20 transition-all duration-300 group"
+                >
+                  <CardHeader className="text-center">
+                    <div className="mx-auto mb-4 w-16 h-16 rounded-full bg-gradient-to-r from-retro-purple to-neon-pink flex items-center justify-center group-hover:animate-retro-glow">
+                      <Icon name={feature.icon} size={32} className="text-white" />
+                    </div>
+                    <CardTitle className="text-neon-pink font-black" style={{ fontFamily: 'Orbitron, monospace' }}>
+                      {feature.title}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <CardDescription className="text-muted-foreground text-center">
+                      {feature.description}
+                    </CardDescription>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="py-20 px-4 bg-gradient-to-r from-neon-orange/10 via-neon-pink/10 to-cyber-blue/10">
+          <div className="container mx-auto text-center">
+            <h2 className="text-4xl md:text-5xl font-black mb-6 animate-neon-pulse"
+                style={{ fontFamily: 'Orbitron, monospace' }}>
+              <span className="text-retro-yellow">ГОТОВ К</span>{' '}
+              <span className="text-electric-green">ПРИКЛЮЧЕНИЮ?</span>
+            </h2>
+            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+              Присоединяйся к тысячам игроков и открой для себя новую эру ретро-гейминга
+            </p>
+            <Button 
+              size="lg"
+              className="bg-gradient-to-r from-neon-orange to-neon-pink hover:from-neon-pink hover:to-cyber-blue text-dark-space font-black text-xl px-12 py-6 border-0 animate-retro-glow"
+              onClick={() => setCurrentPage('ps-games')}
+            >
+              <Icon name="Rocket" className="mr-3" size={24} />
+              ПОЕХАЛИ! 🚀
+            </Button>
+          </div>
+        </section>
+      </div>
     </div>
   );
 };
